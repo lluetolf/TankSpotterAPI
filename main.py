@@ -1,11 +1,16 @@
 from flask import Flask, jsonify, request, render_template
 import os
+from flask_cors import CORS
 
 from InvalidUsage import InvalidUsage
 from services.SpottingsRepository import SpottingsRepository
 
 app = Flask(__name__)
+CORS(app)
+
+
 srv = os.getenv("TANKSPOTTER_MONGO")
+srv = 'mongodb+srv://tankspotter:uY1oOsEKidZXaUWi@tankspotter-xyx91.azure.mongodb.net/test?retryWrites=true&w=majority'
 TankSpotterDB = SpottingsRepository(srv)
 
 @app.errorhandler(InvalidUsage)
