@@ -30,6 +30,9 @@ def index():
 @app.route("/spottings", methods=['GET'])
 def get_all_spottings() -> str:
     all_spottings = TankSpotterDB.read_all()
+    for spotting in all_spottings:
+        spotting['created'] = spotting['created'].isoformat()
+        spotting['spotTime'] = spotting['spotTime'].isoformat()   
     return jsonify(all_spottings), 200
 
 
