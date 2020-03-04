@@ -21,7 +21,9 @@ class SpottingsRepository(object):
             spotting['created'] = dateutil.parser.isoparse(spotting['created'])
             spotting['spotTime'] = dateutil.parser.isoparse(spotting['spotTime'])
             self.spottings.insert(spotting)
+            del(spotting['_id'])
             print("Created new field with id: {}".format(new_id))
+            return spotting
         else:
             raise Exception("Nothing to save, because spottings parameter is None")
 
