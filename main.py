@@ -2,10 +2,11 @@ from flask import Flask, jsonify, request, render_template
 import os
 
 from InvalidUsage import InvalidUsage
+from services.SpottingsRepository import SpottingsRepository
 
 app = Flask(__name__)
-srv = os.getenv("CANAWEB_MONGO")
-
+srv = os.getenv("TANKSPOTTER_MONGO")
+TankSpotterDB = SpottingsRepository(srv)
 
 @app.errorhandler(InvalidUsage)
 def handle_invalid_usage(error):
@@ -19,6 +20,12 @@ def handle_invalid_usage(error):
 @app.route('/')
 def index():
     return "TankSpotterAPI"
+
+
+@app.route("/spottings", methods=['GET'])
+def get_all_spottings() -> str:
+    all_spottings = TankSpotterDB.read_all()
+    return jsonify(all_spottings), 200
 
 
 #
