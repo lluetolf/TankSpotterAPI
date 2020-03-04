@@ -10,7 +10,6 @@ CORS(app)
 
 
 srv = os.getenv("TANKSPOTTER_MONGO")
-srv = 'mongodb+srv://tankspotter:uY1oOsEKidZXaUWi@tankspotter-xyx91.azure.mongodb.net/test?retryWrites=true&w=majority'
 TankSpotterDB = SpottingsRepository(srv)
 
 @app.errorhandler(InvalidUsage)
@@ -35,6 +34,14 @@ def get_all_spottings() -> str:
         spotting['spotTime'] = spotting['spotTime'].isoformat()   
     return jsonify(all_spottings), 200
 
+
+@app.route("/spottings", methods=['POST'])
+def add_spotting() -> str:
+    try:
+        spotting = TankSpotterDB.create(request.json)
+        return jsonify(spotting), 200
+    except Exception as e:
+        return jsonify({"message": "Error creating a new field."}), 400
 
 #
 #
