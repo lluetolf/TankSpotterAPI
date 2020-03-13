@@ -38,7 +38,7 @@ class Spotting():
             'special forces': ['panzerlis', 'bomberlis']
         },
         'civil event': {
-            'natural': ['earthquake', 'storm'] ,
+            'natural': ['earthquake', 'storm'],
             'anthropic': ['demo', 'lütolfs furz']
         },
         'unknown': {
